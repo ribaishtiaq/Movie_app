@@ -1,24 +1,28 @@
-edit.html.erb
-  <h1>Update  movie</h1>
+<h1>Update  movie</h1>
+
 <%= form_for @movie do |f| %>
+  
   <p><%= f.label :movie_name %></p>
   <%= f.text_field :name %><br>
 
   <p><%= f.label :movie_description %></p>
   <%= f.text_area :description %><br>
 
-   <%= f.fields_for :directors do |ff| %>
-   <p><%= ff.label :Director_name %></p>
-     <%= ff.text_field :name %>
-   <% end %><br>
-   <%= f.fields_for :actors do |ff| %>
-     <p class='actor-name'><%= ff.label :actor_name %><p>
-     <p class='actor-field'><%= ff.text_field :name %></p>
-   <% end %><br>
+  <%= f.fields_for :directors do |ff| %>
+    <p><%= ff.label :Director_name %></p>
+    <%= ff.text_field :name %>
+  <% end %>
+  <br />
 
-   <%= f.file_field :picture, accept: 'image/jpeg,image/png'  %><br>
+  <%= f.fields_for :actors do |ff| %>
+    <p class='actor-name'><%= ff.label :actor_name %><p>
+    <p class='actor-field'><%= ff.text_field :name %></p>
+  <% end %>
+  <br />
 
-   <%= f.submit 'Update Movie', class: "btn btn-primary" %>
+  <%= f.file_field :picture, accept: 'image/jpeg,image/png'  %><br>
+
+  <%= f.submit 'Update Movie', class: "btn btn-primary" %>
 
 <% end %>
 

@@ -1,10 +1,9 @@
 <% #unless current_user?(@user) %>
   <div id="watch_form">
-  <% if watched?(@movie.id) %>
-    <%= render partial: 'users/unwatch' %>    
-  <% else %>
-    <%= render partial: 'users/watched' %>  
-  <% end %>
- </div>
- 
+    <% if watched?(@movie.id) %>
+      <%= render partial: 'users/unwatch' %>    
+    <% else %>
+      <%= render partial: 'users/watched' %>  
+    <% end %>
+  </div>
 <% #end %>

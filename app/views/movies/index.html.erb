@@ -1,18 +1,25 @@
-<div class="index-container">
-  <% @movies.each do |movie| %>
-  <div class="card" >
-    <%= link_to image_tag(movie.picture.url), movie if movie.picture? %>
-      
-    <div class="card-body">
-      <% #render 'users/watchlist_form', object: movie  if user_signed_in? %>
-      <% #render 'users/watchlist_form', object: movie  if user_signed_in? %>
-      <%= movie.name %>
-    </div>
-  </div>
-  
-  <% end %>
-
+<div class="poster">
+  <img src="https://res.cloudinary.com/areeba/image/upload/v1606578880/Venom-Banner.png"/>
 </div>
+
+<h1 class="index-page-heading">All Movies</h1>
+
+<div class="container">
+  <div class="card-index-grid">
+      <% @movies.each do |movie| %>
+        <div class="card" >
+          <%= link_to image_tag(movie.picture.url), movie if movie.picture? %>
+          <div class="card-overlay"></div>
+          <div class="card-name-overlay card-name">
+            <%= link_to movie.name, movie %>
+          </div>
+        </div> 
+      <% end %>
+  </div>
+</div>
+
 <div class="paginate">
   <%= paginate @movies %>
 </div>
+
+<%= render 'layouts/footer' %>

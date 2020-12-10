@@ -1,7 +1,7 @@
-<div  id="watchlist_form">
- <% if watchlist?(@movie.id) %>
+<div id="watchlist_form">
+  <% if watchlist?(@movie.id) %>
     <%= render partial: 'users/rmv_from_watchlist' %>
- <% else %>
-   <%= render partial: 'users/add_to_watchlist' %>
- <% end %>
- </div>
+  <% else %>
+    <%= render partial: 'users/add_to_watchlist' %>
+  <% end %>
+</div>

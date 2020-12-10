@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_03_110433) do
+ActiveRecord::Schema.define(version: 2020_12_10_120247) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -39,7 +42,7 @@ ActiveRecord::Schema.define(version: 2018_10_03_110433) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "average_caches", force: :cascade do |t|
+  create_table "average_caches", id: :serial, force: :cascade do |t|
     t.integer "rater_id"
     t.string "rateable_type"
     t.integer "rateable_id"
@@ -55,8 +58,8 @@ ActiveRecord::Schema.define(version: 2018_10_03_110433) do
   end
 
   create_table "movie_actors", force: :cascade do |t|
-    t.integer "movie_id"
-    t.integer "actor_id"
+    t.bigint "movie_id"
+    t.bigint "actor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["actor_id"], name: "index_movie_actors_on_actor_id"
@@ -64,8 +67,8 @@ ActiveRecord::Schema.define(version: 2018_10_03_110433) do
   end
 
   create_table "movie_directors", force: :cascade do |t|
-    t.integer "movie_id"
-    t.integer "director_id"
+    t.bigint "movie_id"
+    t.bigint "director_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["director_id"], name: "index_movie_directors_on_director_id"
@@ -80,7 +83,7 @@ ActiveRecord::Schema.define(version: 2018_10_03_110433) do
     t.string "picture"
   end
 
-  create_table "overall_averages", force: :cascade do |t|
+  create_table "overall_averages", id: :serial, force: :cascade do |t|
     t.string "rateable_type"
     t.integer "rateable_id"
     t.float "overall_avg", null: false
@@ -88,7 +91,7 @@ ActiveRecord::Schema.define(version: 2018_10_03_110433) do
     t.datetime "updated_at"
   end
 
-  create_table "rates", force: :cascade do |t|
+  create_table "rates", id: :serial, force: :cascade do |t|
     t.integer "rater_id"
     t.string "rateable_type"
     t.integer "rateable_id"
@@ -100,7 +103,7 @@ ActiveRecord::Schema.define(version: 2018_10_03_110433) do
     t.index ["rater_id"], name: "index_rates_on_rater_id"
   end
 
-  create_table "rating_caches", force: :cascade do |t|
+  create_table "rating_caches", id: :serial, force: :cascade do |t|
     t.string "cacheable_type"
     t.integer "cacheable_id"
     t.float "avg", null: false
@@ -115,8 +118,8 @@ ActiveRecord::Schema.define(version: 2018_10_03_110433) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "movie_id"
+    t.bigint "user_id"
+    t.bigint "movie_id"
     t.index ["movie_id"], name: "index_reviews_on_movie_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -136,21 +139,31 @@ ActiveRecord::Schema.define(version: 2018_10_03_110433) do
   end
 
   create_table "watches", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "movie_id"
+    t.bigint "movie_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["movie_id"], name: "index_watches_on_movie_id"
     t.index ["user_id"], name: "index_watches_on_user_id"
   end
 
   create_table "watchlists", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "movie_id"
+    t.bigint "user_id"
+    t.bigint "movie_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_watchlists_on_movie_id"
     t.index ["user_id"], name: "index_watchlists_on_user_id"
   end
 
+  add_foreign_key "movie_actors", "actors"
+  add_foreign_key "movie_actors", "movies"
+  add_foreign_key "movie_directors", "directors"
+  add_foreign_key "movie_directors", "movies"
+  add_foreign_key "reviews", "movies"
+  add_foreign_key "reviews", "users"
+  add_foreign_key "watches", "movies"
+  add_foreign_key "watches", "users"
+  add_foreign_key "watchlists", "movies"
+  add_foreign_key "watchlists", "users"
 end

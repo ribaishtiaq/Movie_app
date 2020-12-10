@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+	before_action :authenticate_user!
 	
 	def create
 		@movie = Movie.find_by(id: params[:review][:movie_id])
@@ -10,6 +11,7 @@ class ReviewsController < ApplicationController
 		  render :template => "movies/show", :locals => { @movie => @movie}
 		end
 	end
+
 	def destroy
 	end
 end

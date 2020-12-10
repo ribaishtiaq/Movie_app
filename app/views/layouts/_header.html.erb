@@ -1,21 +1,38 @@
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <%= link_to "MovieHolics", root_path, class: "navbar-brand" %>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                          <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                          <div class="navbar-nav">
-                            <%= link_to "Help", help_path, class: "nav-item nav-link" %>
-                             <% if user_signed_in? %>
-                                <%= link_to "New Movie", new_movie_path, class: "nav-item nav-link" %>
-                                <%= link_to "Profile", current_user, class: "nav-item nav-link"  %>
-                                <%= link_to "Watched Movies", watched_user_path(current_user.id), class: "nav-item nav-link"  %>
-                                <%= link_to "In watchlist movies", watchlist_user_path(current_user.id), class: "nav-item nav-link"  %>
-                                <%= link_to "Log out", destroy_user_session_path, class: "nav-item nav-link"  %>
-                              <% else %>
-                                <%= link_to "Log in", new_user_session_path, class: "nav-item nav-link"  %>
-                                <%= link_to "Sign up", new_user_registration_path, class: "nav-item nav-link"  %>
-                              <% end %>
-                          </div>
-                        </div>
-                      </nav>       
+<nav class="navbar navbar-expand-lg">
+  <%= link_to "MovieHolic", root_path, class: "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <%= link_to "Help", help_path, class: "nav-item nav-link" %>
+      <% if user_signed_in? %>
+        <%= link_to "New Movie", new_movie_path, class: "nav-item nav-link" %>
+        <%= link_to "Profile", current_user, class: 'nav-item nav-link' %>
+        <%= link_to "Watchlist", '/watchlists', class: "nav-item nav-link"  %>
+      <% else %>
+        <%= link_to "Log in", new_user_session_path, class: "nav-item nav-link"  %>
+      <% end %>
+    </div>
+  </div>
+  <% if user_signed_in? %>
+    <div class="navbar-signup">
+      <%= link_to '<button type="button">Logout</button>'.html_safe, destroy_user_session_path %>
+    </div>
+  <% else %>
+    <div class="navbar-signup">
+      <%= link_to '<button type="button">Sign up</button>'.html_safe, new_user_registration_path %>
+    </div>
+  <% end %>
+</nav>  
+
+<script>
+  $(window).scroll(function(){
+      if($(this).scrollTop() > 50) 
+      {
+          $('.navbar').addClass('opaque');
+      } else {
+          $('.navbar').removeClass('opaque');
+      }
+  });
+</script>

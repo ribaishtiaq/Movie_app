@@ -1,22 +1,24 @@
+<h1 class="user-profile-title"><%= @user.email %>'s Profile</h1>
 
-<h4 class="user-profile-title"><%= @user.email %>'s Profile</h3>
-
-<div class="profile-options">
-<div class="show-user-page-container watched">
-<h4 class="Watched_title"><%= link_to 'Watched Movies', watched_user_path(current_user) %></h4>
- <div class="show-list-thumbnail">
-  <% @movies_watch.each do |movie| %>
-    <%= link_to image_tag(movie.picture_url(:thumb)), movie if movie.picture.present? %>
-    <% end %>
- </div>
+<div class="profile-container container">
+  <div class="profile-watched">
+    <h4 class="profile-title">Watched Movies</h4>
+    <span><%= link_to ' View all', watched_user_path(current_user) %></span>
+    <div class="show-list-thumbnail">
+      <% @movies_watch.each do |movie| %>
+        <%= link_to image_tag(movie.picture_url), movie if movie.picture.present? %>
+      <% end %>
+    </div>
+  </div>
+  <div class="profile-watchlist">
+    <h4 class="profile-title">Watchlist</h4>
+    <span><%= link_to ' View all', watchlist_user_path(current_user.id) %></span>
+    <div class="show-list-thumbnail">
+      <% @movies_watchlist.each do |movie| %>
+        <%= link_to image_tag(movie.picture_url), movie if movie.picture.present? %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-<div class="show-user-page-container watchlist">
-<h4 class="Watchlist_title"><%= link_to 'Watchlist', watchlist_user_path(current_user.id) %></h4>
- <div class="show-list-thumbnail">
-  <% @movies_watchlist.each do |movie| %>
-    <%= link_to image_tag(movie.picture_url(:thumb)), movie if movie.picture.present? %>
-    <% end %>
- </div>
-</div>
-</div>
+<%= render "layouts/footer" %>

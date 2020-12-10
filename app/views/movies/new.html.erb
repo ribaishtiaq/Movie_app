@@ -1,26 +1,40 @@
-<div class= "container-new-movie">
-<h1>Add a new Movie</h1>
-<%= form_for @movie do |f| %>
-  <p><%= f.label :movie_name %></p>
-  <p class="field"><%= f.text_field :name %></p><br>
+<div class="new-movie-page">
+  <div class="container-new-movie container">
 
-  <p><%= f.label :movie_description %></p>
-  <p class="field"><%= f.text_area :description %></p><br>
+    <h3>Add a new Movie</h3>
 
-   <%= f.fields_for :directors do |ff| %>
-   <p><%= ff.label :Director_name %></p>
-     <p class="field"><%= ff.text_field :name %></p>
-   <% end %><br>
-   <%= f.fields_for :actors do |ff| %>
-     <p><%= ff.label :actor_name %><p>
-     <p class="field"><%= ff.text_field :name %></p>
-   <% end %><br>
+    <%= form_for @movie do |f| %>
+      <br />
+      <div class="form-group">
+        <%= f.text_field :name, class: 'form-control input', placeholder: 'Enter Movie Name' %>
+      </div>
 
-   <%= f.file_field :picture, accept: 'image/jpeg,image/png', class: "picture" %><br>
+      <%= f.fields_for :directors do |ff| %>
+        <div class="form-group">
+          <%= ff.text_field :name, class: 'form-control input', placeholder: 'Enter Director Name' %>
+        </div>
+      <% end %>
 
-   <%= f.submit 'Create Movie', class: "btn btn-primary create-button" %>
+      <%= f.fields_for :actors do |ff| %>
+        <div class="form-group">
+          <%= ff.text_field :name, class: 'form-control input', placeholder: 'Enter Actor Name' %>
+        </div>
+      <% end %>
 
-<% end %>
+      <div class="form-group">
+        <%= f.text_area :description, class: 'form-control input', placeholder: 'Enter description' %>
+      </div>
+
+      <div class="form-group">  
+        <%= f.file_field :picture, accept: 'image/jpeg,image/png', class: "form-control-file" %>
+      </div>
+
+      <br />
+      <div class="form-group">
+        <%= f.submit 'Create Movie', class: "btn btn-primary form-control" %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -31,3 +45,11 @@
     }
   });
 </script>
+
+<style>
+body {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://cutewallpaper.org/21/movie-collage-wallpapers/I-Love-Wallpapers-Anime,Movies,-Series-Collage.jpg') 0 0 repeat;   
+    width: 100%;
+    min-height: 100vh; 
+}
+</style>

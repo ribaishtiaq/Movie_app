@@ -1,5 +1,4 @@
-module MoviesHelper
-	
+module MoviesHelper	
 	#checks if a user have watched a movie or not,based on this we render a button 'Watched' or 'Unwatch', 
 	#which sends a ajax request to add a movie in watch-list or to remove a movie from watch list
 	def watched?(movie) 

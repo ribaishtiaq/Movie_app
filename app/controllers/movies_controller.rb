@@ -1,6 +1,7 @@
 class MoviesController < ApplicationController
 	before_action :authenticate_user! , only: [:new,:create,:edit,:destroy]
 	before_action :check_if_movie_exists , only: [:show,:edit,:update]
+	
 	def index
 		@movies = Movie.all.page(params[:page]).per(12)
 
@@ -47,16 +48,15 @@ class MoviesController < ApplicationController
 
 
 	private
+
 	def check_if_movie_exists #redirects to root if a movie id is not found in database.
 		if Movie.exists?(id: params[:id])
-			@movie = Movie.find_by(id: params[:id])
-			
+			@movie = Movie.find_by(id: params[:id])		
 		else
 			@movie = Movie.new
 			redirect_to root_path
 		end
 	end
-	
 
 	def movie_params
 		params.require(:movie).permit(:name, :description,	:picture, :directors_attributes => [:id,:name,:movie_id],:actors_attributes => [:id,:name,:movie_id])

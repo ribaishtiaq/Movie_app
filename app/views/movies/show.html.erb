@@ -1,58 +1,66 @@
-<div class="movie-show">
-<div class="container-show-movie">
-  <div class="container-card">
-    <div>
-      <div class="center">
-        <%= image_tag(@movie.picture.url) if @movie.picture? %>
-        <br />
-      </div>
-    </div>
-    <div class="ajax-buttons">
-    <%  if user_signed_in? %>
-      <%= render partial: 'users/watch_form',locals: {movie:  @movie} %><br>
-      <%= render partial: 'users/watchlist_form',locals: {movie:  @movie} %>
-    <% end %>
-   </div>
-    <div class="row ratings">
+<div class="movie-show-container">
+  <div class="center" style="background-image: url('<%= @movie.picture.url if @movie.picture? %> '); background-size: cover;">
+    <!--  <%= image_tag(@movie.picture.url) if @movie.picture? %>-->
+    <br />
+  </div>
+
+  <!--<div class="row ratings">
     <div class="small-2 large-2 columns">
     </div>
-    <br>
+    <br />
     <div class="small-2 large-4 columns">
       <% if current_user %>
         Rate this Movie: <%= rating_for @movie, "movie", disable_after_rate: false, enable_half: true, path: 'star_icons', cancel_place: 'right', cancel_hint: 'Cancel this vote!', imdb_avg: true %>
       <% end %>
     </div>
+  </div>-->
+  <h1 class="movie-title"><%= @movie.name %></h1>
+  <div class="movie-page-content row container">
+    <div class="container-description col-md">
+      <p class="card-text"><strong>Description: </strong><%= @movie.description %></p>
+      <p><strong>Directors: </strong><% @movie.directors.each do |director| %>
+                                    <%= director.name %>
+                                  <% end %>
+      </p>
+      <p><strong>Actors: </strong><% @movie.actors.each do |actor| %>
+                                    <%= actor.name %>
+                                  <% end %>
+      </p>
+    </div>
+
+    <div class="col-md watch-btns">
+      <% if user_signed_in? %>
+        <%= render partial: 'users/watch_form',locals: {movie:  @movie} %><br>
+        <%= render partial: 'users/watchlist_form',locals: {movie:  @movie} %>
+      <% end %>
+    </div>
   </div>
+
+  <div class="review-section">
+    <div class='review-form container'>
+      <%= form_for(Review.new, url: reviews_path) do |f| %>
+        <%= f.hidden_field :movie_id, value: @movie.id %>
+        <%= f.text_area :body %>
+        <%= f.submit %>
+      <% end %>
+    </div>
   </div>
-  <div class="container-description">
-    <p class="card-title"><strong>Name: </strong><%= @movie.name %></p>
-    <p class="card-text"><strong>Description: </strong><%= @movie.description %></p>
-  </div>
-</div>
-<div class="review-section">
-  <div class='review-form'>
-    <%= form_for(Review.new, url: reviews_path) do |f| %>
-      <%= f.hidden_field :movie_id, value: @movie.id %>
-      <%= f.text_area :body %>
-      <%= f.submit %>
+  <br />
+
+  <div class='review-show container'>
+    <% @reviews.each do |review|%>
+      <div class="card-show">
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <span class="card-email"><%= review.user.email %></span>
+            <span class="blockquote-footer"><%= review.created_at %> </span>
+            <p><%= review.body %></p>
+          </blockquote>
+          <br />
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
-<br />
-<div class='review-show'>
-<% @reviews.each do |review|%>
-  <div class="card-show">
-    <div class="card-body">
-      <blockquote class="blockquote mb-0">
-          <div class="card-header">
-            <p>Commented by: <%= review.user.email %></p>
-          </div>
-        <p><%= review.body %></p>
-        <footer class="blockquote-footer"><%= review.created_at %> </footer>
-      </blockquote>
-        <br />
-    </div>
-  </div>
-<% end %>
-</div>
-</div>
+
+<%= render "layouts/footer" %>

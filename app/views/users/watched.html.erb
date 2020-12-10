@@ -1,19 +1,22 @@
-
-<h2 class="watched_title ">Watched Movies</h2>
- <div class="index-container ">
+<div class="container watched-container">
+  <h1 class="watched-title">Watched Movies</h1>
+ 
   <% @movies_watch.each do |movie| %>
-  <div class="card" >
-   
-    <div class="card-body center">
-      <%= link_to image_tag(movie.picture.url), movie if movie.picture? %>
-      <% #render 'users/watchlist_form', object: movie  if user_signed_in? %>
-      <% #render 'users/watchlist_form', object: movie  if user_signed_in? %>
+    <div class="watched-card">
+      <div class="center">
+        <%= link_to image_tag(movie.picture.url), movie if movie.picture? %>
+        <div class="watched-div">
+          <h1 class="watched-card-name"><%= movie.name %></h1>
+          <h5 class="watched-card-description"><%= movie.description %></h5>
+          <%= link_to "View Movie", movie, class: 'btn btn-primary watched-card-btn' %>
+        </div>
+      </div>
     </div>
-  </div>
-  
   <% end %>
-
 </div>
+
 <div class="paginate">
   <%= paginate @movies_watch %>
 </div>
+
+<%= render "layouts/footer" %>
