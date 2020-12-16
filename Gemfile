@@ -12,6 +12,9 @@ gem 'mini_magick',             '4.7.0'
 gem 'bootstrap'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
+gem 'cloudinary'
+gem 'figaro'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets

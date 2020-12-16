@@ -707,12 +707,7 @@ body {
                 padding: 20px;
                 height: 300px;
                 width: 100%;
-                h5 {
-                    font-weight: normal;
-                    font-size: 16px;
-                }
-            }
-            .watchlist-card-name {
+                .watchlist-card-name {
                 height: 100%;
 	            text-overflow: ellipsis;
 	            display: block;
@@ -740,6 +735,11 @@ body {
                 box-shadow: none !important;
                 outline: none;
                 border: #ff1654;
+            }
+                h5 {
+                    font-weight: normal;
+                    font-size: 16px;
+                }
             }
         }
     }
